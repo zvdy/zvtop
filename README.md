@@ -8,6 +8,7 @@ A [btop](https://github.com/aristocratos/btop)-inspired terminal monitor for NVI
 
 [![ci](https://github.com/zvdy/zvtop/actions/workflows/ci.yml/badge.svg)](https://github.com/zvdy/zvtop/actions/workflows/ci.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/zvdy/zvtop.svg)](https://pkg.go.dev/github.com/zvdy/zvtop)
+[![Docker](https://img.shields.io/badge/ghcr.io-zvdy%2Fzvtop-2496ED?logo=docker&logoColor=white)](https://github.com/zvdy/zvtop/pkgs/container/zvtop)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ![zvtop screenshot (gruvbox dark)](docs/screenshot-gruvbox.png)
