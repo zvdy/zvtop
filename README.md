@@ -42,6 +42,15 @@ make demo         # run against two simulated GPUs
 
 NVML is loaded at runtime with `dlopen`, so the binary builds on machines without a GPU. Builds without cgo, or for platforms other than Linux, compile with a stub backend and can only use `-mock`.
 
+### Docker
+
+Images are published to GHCR on every release (`latest`, `X.Y.Z`, `X.Y`). GPUs need the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) on the host:
+
+```sh
+docker run --rm -it --gpus all ghcr.io/zvdy/zvtop
+docker run --rm -it ghcr.io/zvdy/zvtop -mock 2    # no GPU required
+```
+
 ## Usage
 
 ```
