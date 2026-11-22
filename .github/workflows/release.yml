@@ -3,6 +3,11 @@ name: release
 on:
   push:
     tags: ["v*"]
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
 
 permissions:
   contents: write
@@ -14,6 +19,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ inputs.tag || github.ref }}
       - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
@@ -23,3 +29,18 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  reindex:
+    needs: goreleaser
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh Go module proxy and pkg.go.dev
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          mod=github.com/zvdy/zvtop
+          for i in 1 2 3 4 5; do
+            if curl -fsS "https://proxy.golang.org/$mod/@v/$TAG.info"; then echo; break; fi
+            echo "proxy not ready, retry $i"; sleep 15
+          done
+          curl -fsS -X POST "https://pkg.go.dev/fetch/$mod@$TAG" || echo "pkg.go.dev fetch request failed (non-fatal)"
