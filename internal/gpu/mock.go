@@ -157,9 +157,11 @@ func NewMock(n int, seed uint64) *Mock {
 		}
 		if g.desktop {
 			xorg := &mockProc{
-				Process: Process{PID: 900 + uint32(m.rng.IntN(600)), Name: "Xorg", User: "root",
+				Process: Process{
+					PID: 900 + uint32(m.rng.IntN(600)), Name: "Xorg", User: "root",
 					Command: "/usr/lib/Xorg :0 -seat seat0 -auth /run/sddm/xauth_kqWv -nolisten tcp -background none -noreset vt1",
-					Kind:    KindGraphics},
+					Kind:    KindGraphics,
+				},
 				target: m.mib(220, 480), share: 0.03, active: 0.9, born: -3600,
 			}
 			g.procs = append(g.procs, xorg)
