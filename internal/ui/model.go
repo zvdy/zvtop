@@ -1,4 +1,11 @@
 // Package ui implements the interactive terminal dashboard.
+//
+// [Model] is a Bubble Tea model: it polls a [gpu.Source] on a timer, keeps a
+// [history.Ring] of samples per metric, and renders the graphs, meters and
+// process table. Colors come from a [Theme], selected by name with
+// [LoadTheme]; the package also exports the small drawing primitives it is
+// built from, such as [Graph], [Meter] and [Box], which are pure functions of
+// their arguments.
 package ui
 
 import (

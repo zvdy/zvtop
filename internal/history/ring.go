@@ -1,4 +1,8 @@
 // Package history provides fixed-size time series storage.
+//
+// The dashboard keeps a bounded window of recent samples per metric. [Ring]
+// stores such a window without allocating after construction: once it is full,
+// each new sample overwrites the oldest one.
 package history
 
 // Ring is a fixed-capacity FIFO that overwrites its oldest element when full.

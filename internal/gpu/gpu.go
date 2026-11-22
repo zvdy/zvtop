@@ -1,4 +1,16 @@
 // Package gpu defines a backend-agnostic view of NVIDIA GPU telemetry.
+//
+// A [Source] produces point-in-time [Snapshot] values, each holding one
+// [Device] per GPU and the [Process] entries running on it. Two sources are
+// provided: [NVML], which reads real hardware through the NVIDIA Management
+// Library, and [Mock], a deterministic simulation used for demos and tests.
+//
+// Metrics that a device or driver does not report are represented by
+// [Value], whose OK field is false and which encodes to JSON null, so callers
+// never confuse "unsupported" with zero.
+//
+// The NVML backend needs cgo and the NVIDIA driver at run time. When it is
+// unavailable, [NewNVML] returns [ErrUnavailable].
 package gpu
 
 import (

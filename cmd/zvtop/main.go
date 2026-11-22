@@ -1,4 +1,68 @@
-// Command zvtop is a btop-inspired terminal monitor for NVIDIA GPUs.
+/*
+Command zvtop is a btop-inspired terminal monitor for NVIDIA GPUs.
+
+It samples the NVIDIA Management Library (NVML) at a fixed interval and shows
+the result as a live dashboard: history graphs for utilization, VRAM, power,
+temperature and PCIe throughput, meters for fan speed, memory bandwidth,
+NVENC/NVDEC load, clocks and performance state, and a table of processes using
+the GPU. Metrics a device does not support are shown as n/a.
+
+# Usage
+
+	zvtop [flags]
+
+The flags are:
+
+	-i, -interval duration
+	    refresh interval (default 1s)
+	-theme name
+	    color theme: btop, crimson, dracula, gruvbox or nord
+	-mock n
+	    simulate n GPUs instead of querying NVML
+	-json
+	    print a single snapshot as JSON and exit
+	-version
+	    print the version and exit
+
+Examples:
+
+	# Refresh four times a second with the nord theme.
+	zvtop -i 250ms -theme nord
+
+	# Take one snapshot for a script or monitoring pipeline.
+	zvtop -json | jq '.devices[] | {name, util, temp, power}'
+
+	# Try the interface without NVIDIA hardware.
+	zvtop -mock 4
+
+# Key bindings
+
+	q, ctrl+c           quit
+	?                   help
+	tab, right, l       next GPU
+	shift+tab, left, h  previous GPU
+	0-9                 jump to GPU
+	up, down, j, k      move the process selection
+	pgup, pgdn, g, G    page, first and last process
+	s                   cycle the sort column
+	r                   reverse the sort order
+	x, delete           signal the selected process (t: SIGTERM, k: SIGKILL)
+	+, -                slower, faster refresh
+	space, p            pause
+	t                   cycle themes
+
+# Requirements
+
+Monitoring real hardware requires Linux, an NVIDIA driver that provides
+libnvidia-ml.so, and a binary built with cgo. Builds without cgo, and hosts
+without a driver, can still run with -mock. In a container, pass the GPUs
+through with the NVIDIA container toolkit (docker run --gpus all).
+
+# Exit status
+
+zvtop exits with status 1 and prints a message prefixed with "zvtop:" to
+standard error if no GPU backend can be initialized or a flag is invalid.
+*/
 package main
 
 import (
