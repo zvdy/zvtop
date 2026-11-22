@@ -106,6 +106,21 @@ var palettes = map[string]palette{
 		rx:    []string{"#6272a4", "#bd93f9", "#ff79c6"},
 		tx:    []string{"#6272a4", "#8be9fd", "#50fa7b"},
 	},
+	// crimson: the custom GNOME dark+red desktop theme
+	// (~/.local/share/crimson-theme/build.py palette). Warm near-black chrome,
+	// red frames, red-family gradients; blue/yellow only where a cool->hot
+	// reading helps (temperature, power).
+	"crimson": {
+		text: "#f2eaeb", dim: "#4b353b", title: "#f2eaeb", hi: "#ff5468", warn: "#f5b84a",
+		selFg: "#f2eaeb", selBg: "#4a121b",
+		gpuBox: "#a3172b", memBox: "#a3172b", pwrBox: "#a3172b", pcieBox: "#a3172b", procBox: "#a3172b",
+		util:  []string{"#a3172b", "#e62d42", "#ff5468"},
+		mem:   []string{"#8c777c", "#e62d42", "#ff5468"},
+		temp:  []string{"#7fa4e8", "#f5b84a", "#e62d42"},
+		power: []string{"#f5b84a", "#ff7b3d", "#e62d42"},
+		rx:    []string{"#4b353b", "#a3172b", "#ff5468"},
+		tx:    []string{"#8c777c", "#ff7b3d", "#f5b84a"},
+	},
 	// gruvbox dark, hard contrast. Frame/chrome uses only the bg/fg scale
 	// (same as the tmux-gruvbox bar and nvim chrome); accents are reserved
 	// for the data itself.
